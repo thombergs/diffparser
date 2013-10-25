@@ -19,7 +19,7 @@ List<Diff> diff = parser.parse(in);
 ```
 If you do not use Maven as build tool, you can download the JAR at a public Maven repository like http://mvnrepository.com/.
 
-### What Diff formatd can be parsed?
+### What Diff formats can be parsed?
 Currently, the only implementation of the DiffParser interface is UnifiedDiffParser, which supports parsing of diffs like the following:
 ```
 Modified: trunk/test1.txt
