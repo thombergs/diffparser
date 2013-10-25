@@ -8,6 +8,8 @@
     <artifactId>diffparser</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
+    <name>diffparser</name>
+    <description>Parse textual diffs with Java.</description>
 
     <url>http://thombergs.github.io/diffparser/</url>
 
