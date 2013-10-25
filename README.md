@@ -39,3 +39,6 @@ Modified: trunk/test1.txt
 +aösdhasd
 +asdasd
 ```
+
+An input stream may contain several sections like the above, delimited by an empty line. Each such section will be parsed into an object
+of class Diff.
