@@ -79,7 +79,7 @@ public class UnifiedDiffParser implements DiffParser {
                     parseHunkStart(currentDiff, currentLine);
                     break;
                 case FROM_LINE:
-                    parseFromLime(currentDiff, currentLine);
+                    parseFromLine(currentDiff, currentLine);
                     break;
                 case TO_LINE:
                     parseToLine(currentDiff, currentLine);
@@ -109,7 +109,7 @@ public class UnifiedDiffParser implements DiffParser {
         currentDiff.getLatestHunk().getLines().add(toLine);
     }
 
-    private void parseFromLime(Diff currentDiff, String currentLine) {
+    private void parseFromLine(Diff currentDiff, String currentLine) {
         Line fromLine = new Line(Line.LineType.FROM, currentLine.substring(1));
         currentDiff.getLatestHunk().getLines().add(fromLine);
     }
