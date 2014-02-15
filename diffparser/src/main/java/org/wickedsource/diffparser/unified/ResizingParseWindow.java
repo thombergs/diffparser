@@ -71,7 +71,6 @@ public class ResizingParseWindow implements ParseWindow {
             for (int i = 0; i < numberOfLinesToLoad; i++) {
                 String nextLine = getNextLine();
                 if (nextLine != null) {
-                    nextLine = nextLine.trim();
                     lineQueue.addLast(nextLine);
                 } else {
                     throw new IndexOutOfBoundsException("End of stream has been reached!");
@@ -90,7 +89,6 @@ public class ResizingParseWindow implements ParseWindow {
             if (lineQueue.isEmpty()) {
                 String nextLine = getNextLine();
                 if (nextLine != null) {
-                    nextLine = nextLine.trim();
                     lineQueue.addLast(nextLine);
                 }
                 return nextLine;
