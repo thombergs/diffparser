@@ -115,15 +115,15 @@ public class UnifiedDiffParser implements DiffParser {
     }
 
     private void parseHunkStart(Diff currentDiff, String currentLine) {
-        Pattern pattern = Pattern.compile("^.*-([0-9]+),([0-9]+) \\+([0-9]+),([0-9]+).*$");
+        Pattern pattern = Pattern.compile("^.*-([0-9]+)(?:,([0-9]+))? \\+([0-9]+)(?:,([0-9]+))?.*$");
         Matcher matcher = pattern.matcher(currentLine);
         if (matcher.matches()) {
             String range1Start = matcher.group(1);
-            String range1End = matcher.group(2);
+            String range1End = (matcher.group(2) != null) ? matcher.group(2) : "1";
             Range fromRange = new Range(Integer.valueOf(range1Start), Integer.valueOf(range1End));
 
             String range2Start = matcher.group(3);
-            String range2End = matcher.group(4);
+            String range2End = (matcher.group(4) != null) ? matcher.group(4) : "1";
             Range toRange = new Range(Integer.valueOf(range2Start), Integer.valueOf(range2End));
 
             Hunk hunk = new Hunk();
