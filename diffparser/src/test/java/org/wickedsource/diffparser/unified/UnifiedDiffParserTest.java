@@ -36,9 +36,9 @@ public class UnifiedDiffParserTest {
 
         Hunk hunk1 = diff1.getHunks().get(0);
         Assert.assertEquals(1, hunk1.getFromFileRange().getLineStart());
-        Assert.assertEquals(4, hunk1.getFromFileRange().getLineEnd());
+        Assert.assertEquals(4, hunk1.getFromFileRange().getLineCount());
         Assert.assertEquals(1, hunk1.getToFileRange().getLineStart());
-        Assert.assertEquals(3, hunk1.getToFileRange().getLineEnd());
+        Assert.assertEquals(3, hunk1.getToFileRange().getLineCount());
 
         List<Line> lines = hunk1.getLines();
         Assert.assertEquals(6, lines.size());
