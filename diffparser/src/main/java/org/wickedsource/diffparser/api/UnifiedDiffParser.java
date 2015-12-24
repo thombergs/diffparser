@@ -119,12 +119,12 @@ public class UnifiedDiffParser implements DiffParser {
         Matcher matcher = pattern.matcher(currentLine);
         if (matcher.matches()) {
             String range1Start = matcher.group(1);
-            String range1End = matcher.group(2);
-            Range fromRange = new Range(Integer.valueOf(range1Start), Integer.valueOf(range1End));
+            String range1Count = matcher.group(2);
+            Range fromRange = new Range(Integer.valueOf(range1Start), Integer.valueOf(range1Count));
 
             String range2Start = matcher.group(3);
-            String range2End = matcher.group(4);
-            Range toRange = new Range(Integer.valueOf(range2Start), Integer.valueOf(range2End));
+            String range2Count = matcher.group(4);
+            Range toRange = new Range(Integer.valueOf(range2Start), Integer.valueOf(range2Count));
 
             Hunk hunk = new Hunk();
             hunk.setFromFileRange(fromRange);

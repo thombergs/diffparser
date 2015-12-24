@@ -24,11 +24,11 @@ public class Range {
 
     private final int lineStart;
 
-    private final int lineEnd;
+    private final int lineCount;
 
-    public Range(int lineStart, int lineEnd) {
+    public Range(int lineStart, int lineCount) {
         this.lineStart = lineStart;
-        this.lineEnd = lineEnd;
+        this.lineCount = lineCount;
     }
 
     /**
@@ -41,12 +41,12 @@ public class Range {
     }
 
     /**
-     * The line number at which this range ends (inclusive).
+     * The count of lines in this range.
      *
-     * @return the line number at which this range ends.
+     * @return the count of lines in this range.
      */
-    public int getLineEnd() {
-        return lineEnd;
+    public int getLineCount() {
+        return lineCount;
     }
 
 }
