@@ -40,6 +40,8 @@ public class ResizingParseWindow implements ParseWindow {
 
     private List<Pattern> ignorePatterns = new ArrayList<>();
 
+    private boolean isEndOfStream = false;
+
     public ResizingParseWindow(InputStream in) {
         Reader unbufferedReader = new InputStreamReader(in);
         this.reader = new BufferedReader(unbufferedReader);
@@ -105,6 +107,21 @@ public class ResizingParseWindow implements ParseWindow {
         while (matchesIgnorePattern(nextLine)) {
             nextLine = reader.readLine();
         }
+
+        return getNextLineOrVirtualBlankLineAtEndOfStream(nextLine);
+    }
+
+    /**
+     * Guarantees that a virtual blank line is injected at the end of the input
+     * stream to ensure the parser attempts to transition to the {@code END}
+     * state, if necessary, when the end of stream is reached.
+     */
+    private String getNextLineOrVirtualBlankLineAtEndOfStream(String nextLine) {
+        if ((nextLine == null) && !isEndOfStream) {
+            isEndOfStream = true;
+            return "";
+        }
+
         return nextLine;
     }
 
