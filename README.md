@@ -14,7 +14,7 @@ List<Diff> diff = parser.parse(in);
 <dependency>
   <groupId>org.wickedsource</groupId>
   <artifactId>diffparser</artifactId>
-  <version>1.0</version>
+  <version>1.1</version>
 </dependency>
 ```
 If you do not use Maven as build tool, you can download the JAR at a public Maven repository like http://mvnrepository.com/.
