@@ -1,0 +1,56 @@
+Index: UnifiedDiffParser.java
+===================================================================
+--- UnifiedDiffParser.java	(revision 3)
++++ UnifiedDiffParser.java	(working copy)
+@@ -73,13 +73,13 @@
+                     parseFromFile(currentDiff, currentLine);
+                     break;
+                 case TO_FILE:
++					new line
+                     parseToFile(currentDiff, currentLine);
+                     break;
+                 case HUNK_START:
+-                    parseHunkStart(currentDiff, currentLine);
++                    changedLine(currentDiff, currentLine);
+                     break;
+-                case FROM_LINE:
+-                    parseFromLine(currentDiff, currentLine);
++                case FROM_LINE:                   
+                     break;
+                 case TO_LINE:
+                     parseToLine(currentDiff, currentLine);
+Index: UnifiedDiffParserTest.java
+===================================================================
+--- UnifiedDiffParserTest.java	(revision 3)
++++ UnifiedDiffParserTest.java	(working copy)
+@@ -17,8 +17,7 @@
+     public void testParse() throws Exception {
+         // given
+         DiffParser parser = new UnifiedDiffParser();
+-        InputStream in = getClass().getResourceAsStream("svnlog.diff");
+-
++       
+         // when
+         List<Diff> diffs = parser.parse(in);
+ 
+@@ -34,7 +33,8 @@
+         List<String> headerLines = diff1.getHeaderLines();
+         Assert.assertEquals(2, headerLines.size());
+ 
+-        Hunk hunk1 = diff1.getHunks().get(0);
++        new line
++		new line
+         Assert.assertEquals(1, hunk1.getFromFileRange().getLineStart());
+         Assert.assertEquals(4, hunk1.getFromFileRange().getLineCount());
+         Assert.assertEquals(1, hunk1.getToFileRange().getLineStart());
+@@ -64,8 +64,8 @@
+             + "\n";
+ 
+         // when
+-        List<Diff> diffs = parser.parse(in.getBytes());
+-
++        List<Diff> diffs = change in line
++		
+         // then
+         Assert.assertNotNull(diffs);
+         Assert.assertEquals(1, diffs.size());

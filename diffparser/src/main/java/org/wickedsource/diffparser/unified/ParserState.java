@@ -277,7 +277,15 @@ public enum ParserState {
             // We reached the end of the stream.
             return true;
         } else {
-            return false;
+            // some diff tools like "svn diff" do not put an empty line between two diffs
+            // we add that empty line and call the method again
+            String nextFromFileLine = window.getFutureLine(3);
+            if(nextFromFileLine != null && matchesFromFilePattern(nextFromFileLine)){
+                window.addLine(1, "");
+                return matchesEndPattern(line, window);
+            }else{
+                return false;
+            }
         }
     }
 

@@ -57,4 +57,6 @@ public interface ParseWindow {
      */
     String getFutureLine(int distance);
 
+    void addLine(int pos, String line);
+
 }

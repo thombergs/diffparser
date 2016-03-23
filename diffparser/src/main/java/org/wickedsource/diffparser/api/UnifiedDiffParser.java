@@ -137,21 +137,18 @@ public class UnifiedDiffParser implements DiffParser {
     }
 
     private void parseToFile(Diff currentDiff, String currentLine) {
-        currentDiff.setToFileName(cutDate(currentLine.substring(4)));
+        currentDiff.setToFileName(cutAfterTab(currentLine.substring(4)));
     }
 
     private void parseFromFile(Diff currentDiff, String currentLine) {
-        currentDiff.setFromFileName(cutDate(currentLine.substring(4)));
+        currentDiff.setFromFileName(cutAfterTab(currentLine.substring(4)));
     }
 
     /**
-     * Cuts a potential TAB followed by a date from the given string.
-     *
-     * @param line the string to cut.
-     * @return the line up to the TAB or the line itself, if no TAB + date has been found.s
+     * Cuts a TAB and all following characters from a String.
      */
-    private String cutDate(String line) {
-        Pattern p = Pattern.compile("^(.*)\t[0-9]{4}.*");
+    private String cutAfterTab(String line) {
+        Pattern p = Pattern.compile("^(.*)\\t.*$");
         Matcher matcher = p.matcher(line);
         if (matcher.matches()) {
             return matcher.group(1);

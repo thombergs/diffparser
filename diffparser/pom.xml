@@ -6,7 +6,7 @@
 
     <groupId>org.wickedsource</groupId>
     <artifactId>diffparser</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
     <packaging>jar</packaging>
     <name>diffparser</name>
     <description>Parse textual diffs with Java.</description>
@@ -35,17 +35,22 @@
 
     <profiles>
         <profile>
-            <id>sign</id>
+            <id>release-sign-artifacts</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
             <build>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.4</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
-                                <phase>package</phase>
+                                <phase>verify</phase>
                                 <goals>
                                     <goal>sign</goal>
                                 </goals>
@@ -141,6 +146,11 @@
             <artifactId>testng</artifactId>
             <version>6.8.7</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.wickedsource</groupId>
+            <artifactId>docx-stamper</artifactId>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
 

@@ -61,6 +61,11 @@ public class ResizingParseWindow implements ParseWindow {
         }
     }
 
+    @Override
+    public void addLine(int pos, String line) {
+        lineQueue.add(pos, line);
+    }
+
     /**
      * Resizes the sliding window to the given size, if necessary.
      *

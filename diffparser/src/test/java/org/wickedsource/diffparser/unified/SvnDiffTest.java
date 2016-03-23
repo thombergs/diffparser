@@ -11,13 +11,16 @@ import org.wickedsource.diffparser.api.model.Line;
 import java.io.InputStream;
 import java.util.List;
 
-public class UnifiedDiffParserTest {
+/**
+ * Tests the DiffParser with a diff created by the "svn diff" command.
+ */
+public class SvnDiffTest {
 
     @Test
     public void testParse() throws Exception {
         // given
         DiffParser parser = new UnifiedDiffParser();
-        InputStream in = getClass().getResourceAsStream("tortoise.diff");
+        InputStream in = getClass().getResourceAsStream("svn.diff");
 
         // when
         List<Diff> diffs = parser.parse(in);
@@ -27,27 +30,24 @@ public class UnifiedDiffParserTest {
         Assert.assertEquals(2, diffs.size());
 
         Diff diff1 = diffs.get(0);
-        Assert.assertEquals("/trunk/test1 - Kopie (2).txt", diff1.getFromFileName());
-        Assert.assertEquals("/trunk/test1 - Kopie (2).txt", diff1.getToFileName());
-        Assert.assertEquals(2, diff1.getHunks().size());
+        Assert.assertEquals("UnifiedDiffParser.java", diff1.getFromFileName());
+        Assert.assertEquals("UnifiedDiffParser.java", diff1.getToFileName());
+        Assert.assertEquals(1, diff1.getHunks().size());
 
         List<String> headerLines = diff1.getHeaderLines();
         Assert.assertEquals(2, headerLines.size());
 
         Hunk hunk1 = diff1.getHunks().get(0);
-        Assert.assertEquals(1, hunk1.getFromFileRange().getLineStart());
-        Assert.assertEquals(4, hunk1.getFromFileRange().getLineCount());
-        Assert.assertEquals(1, hunk1.getToFileRange().getLineStart());
-        Assert.assertEquals(3, hunk1.getToFileRange().getLineCount());
+        Assert.assertEquals(73, hunk1.getFromFileRange().getLineStart());
+        Assert.assertEquals(13, hunk1.getFromFileRange().getLineCount());
+        Assert.assertEquals(73, hunk1.getToFileRange().getLineStart());
+        Assert.assertEquals(13, hunk1.getToFileRange().getLineCount());
 
         List<Line> lines = hunk1.getLines();
-        Assert.assertEquals(6, lines.size());
-        Assert.assertEquals(Line.LineType.NEUTRAL, lines.get(0).getLineType());
-        Assert.assertEquals(Line.LineType.FROM, lines.get(1).getLineType());
-        Assert.assertEquals(Line.LineType.TO, lines.get(2).getLineType());
-        Assert.assertEquals(Line.LineType.NEUTRAL, lines.get(3).getLineType());
-        Assert.assertEquals(Line.LineType.FROM, lines.get(4).getLineType());
-        Assert.assertEquals(Line.LineType.NEUTRAL, lines.get(5).getLineType());
+        Assert.assertEquals(16, lines.size());
+        Assert.assertEquals(Line.LineType.TO, lines.get(3).getLineType());
+        Assert.assertEquals(Line.LineType.FROM, lines.get(7).getLineType());
+        Assert.assertEquals(Line.LineType.TO, lines.get(8).getLineType());
 
     }
 
