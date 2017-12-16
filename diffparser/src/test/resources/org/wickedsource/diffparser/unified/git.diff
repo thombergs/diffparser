@@ -1,0 +1,75 @@
+diff --git a/diffparser/pom.xml b/diffparser/pom.xml
+index 5809534..4f4147a 100644
+--- a/diffparser/pom.xml
++++ b/diffparser/pom.xml
+@@ -6,7 +6,7 @@
+ 
+     <groupId>org.wickedsource</groupId>
+     <artifactId>diffparser</artifactId>
+-    <version>1.1-SNAPSHOT</version>
++    <version>1.0</version>
+     <packaging>jar</packaging>
+     <name>diffparser</name>
+     <description>Parse textual diffs with Java.</description>
+@@ -101,19 +101,6 @@
+                     </execution>
+                 </executions>
+             </plugin>
+-            <plugin>
+-                <groupId>org.apache.maven.plugins</groupId>
+-                <artifactId>maven-gpg-plugin</artifactId>
+-                <executions>
+-                    <execution>
+-                        <id>sign-artifacts</id>
+-                        <phase>verify</phase>
+-                        <goals>
+-                            <goal>sign</goal>
+-                        </goals>
+-                    </execution>
+-                </executions>
+-            </plugin>
+         </plugins>
+     </build>
+ 
+diff --git a/diffparser/src/main/java/org/wickedsource/diffparser/api/UnifiedDiffParser.java b/diffparser/src/main/java/org/wickedsource/diffparser/api/UnifiedDiffParser.java
+index 0b53136..4dcdc64 100644
+--- a/diffparser/src/main/java/org/wickedsource/diffparser/api/UnifiedDiffParser.java
++++ b/diffparser/src/main/java/org/wickedsource/diffparser/api/UnifiedDiffParser.java
+@@ -79,7 +79,7 @@ public class UnifiedDiffParser implements DiffParser {
+                     parseHunkStart(currentDiff, currentLine);
+                     break;
+                 case FROM_LINE:
+-                    parseFromLine(currentDiff, currentLine);
++                    parseFromLime(currentDiff, currentLine);
+                     break;
+                 case TO_LINE:
+                     parseToLine(currentDiff, currentLine);
+@@ -109,7 +109,7 @@ public class UnifiedDiffParser implements DiffParser {
+         currentDiff.getLatestHunk().getLines().add(toLine);
+     }
+ 
+-    private void parseFromLine(Diff currentDiff, String currentLine) {
++    private void parseFromLime(Diff currentDiff, String currentLine) {
+         Line fromLine = new Line(Line.LineType.FROM, currentLine.substring(1));
+         currentDiff.getLatestHunk().getLines().add(fromLine);
+     }
+diff --git a/diffparser/src/main/java/org/wickedsource/diffparser/unified/ResizingParseWindow.java b/diffparser/src/main/java/org/wickedsource/diffparser/unified/ResizingParseWindow.java
+index d9f7e97..15c23a7 100644
+--- a/diffparser/src/main/java/org/wickedsource/diffparser/unified/ResizingParseWindow.java
++++ b/diffparser/src/main/java/org/wickedsource/diffparser/unified/ResizingParseWindow.java
+@@ -71,6 +71,7 @@ public class ResizingParseWindow implements ParseWindow {
+             for (int i = 0; i < numberOfLinesToLoad; i++) {
+                 String nextLine = getNextLine();
+                 if (nextLine != null) {
++                    nextLine = nextLine.trim();
+                     lineQueue.addLast(nextLine);
+                 } else {
+                     throw new IndexOutOfBoundsException("End of stream has been reached!");
+@@ -89,6 +90,7 @@ public class ResizingParseWindow implements ParseWindow {
+             if (lineQueue.isEmpty()) {
+                 String nextLine = getNextLine();
+                 if (nextLine != null) {
++                    nextLine = nextLine.trim();
+                     lineQueue.addLast(nextLine);
+                 }
+                 return nextLine;
