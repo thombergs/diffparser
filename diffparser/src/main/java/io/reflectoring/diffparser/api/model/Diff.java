@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.wickedsource.diffparser.api.model;
+package io.reflectoring.diffparser.api.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +68,7 @@ public class Diff {
     }
 
     /**
-     * The list if all {@link org.wickedsource.diffparser.api.model.Hunk}s which contain all changes that are part of this Diff.
+     * The list if all {@link Hunk}s which contain all changes that are part of this Diff.
      *
      * @return list of all Hunks that are part of this Diff.
      */
@@ -89,9 +89,9 @@ public class Diff {
     }
 
     /**
-     * Gets the last {@link org.wickedsource.diffparser.api.model.Hunk} of changes that is part of this Diff.
+     * Gets the last {@link Hunk} of changes that is part of this Diff.
      *
-     * @return the last {@link org.wickedsource.diffparser.api.model.Hunk} that has been added to this Diff.
+     * @return the last {@link Hunk} that has been added to this Diff.
      */
     public Hunk getLatestHunk() {
         return hunks.get(hunks.size() - 1);

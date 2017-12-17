@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.wickedsource.diffparser.api.model;
+package io.reflectoring.diffparser.api.model;
 
 /**
  * Represents a line of a Diff. A line is either contained in both files ("neutral"), only in the first file ("from"),

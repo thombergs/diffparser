@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.wickedsource.diffparser.api.model;
+package io.reflectoring.diffparser.api.model;
 
 /**
  * Represents a range of line numbers that spans a window on a text file.

@@ -13,9 +13,9 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.wickedsource.diffparser.api;
+package io.reflectoring.diffparser.api;
 
-import org.wickedsource.diffparser.api.model.Diff;
+import io.reflectoring.diffparser.api.model.Diff;
 
 import java.io.File;
 import java.io.IOException;

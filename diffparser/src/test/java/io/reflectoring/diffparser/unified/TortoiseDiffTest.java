@@ -1,12 +1,12 @@
-package org.wickedsource.diffparser.unified;
+package io.reflectoring.diffparser.unified;
 
+import io.reflectoring.diffparser.api.DiffParser;
+import io.reflectoring.diffparser.api.UnifiedDiffParser;
+import io.reflectoring.diffparser.api.model.Hunk;
 import junit.framework.Assert;
 import org.testng.annotations.Test;
-import org.wickedsource.diffparser.api.DiffParser;
-import org.wickedsource.diffparser.api.UnifiedDiffParser;
-import org.wickedsource.diffparser.api.model.Diff;
-import org.wickedsource.diffparser.api.model.Hunk;
-import org.wickedsource.diffparser.api.model.Line;
+import io.reflectoring.diffparser.api.model.Diff;
+import io.reflectoring.diffparser.api.model.Line;
 
 import java.io.InputStream;
 import java.util.List;

@@ -13,14 +13,14 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.wickedsource.diffparser.api;
+package io.reflectoring.diffparser.api;
 
-import org.wickedsource.diffparser.api.model.Diff;
-import org.wickedsource.diffparser.api.model.Hunk;
-import org.wickedsource.diffparser.api.model.Line;
-import org.wickedsource.diffparser.api.model.Range;
-import org.wickedsource.diffparser.unified.ParserState;
-import org.wickedsource.diffparser.unified.ResizingParseWindow;
+import io.reflectoring.diffparser.api.model.Diff;
+import io.reflectoring.diffparser.api.model.Hunk;
+import io.reflectoring.diffparser.api.model.Line;
+import io.reflectoring.diffparser.api.model.Range;
+import io.reflectoring.diffparser.unified.ParserState;
+import io.reflectoring.diffparser.unified.ResizingParseWindow;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * A parser that parses a unified diff from text into a {@link org.wickedsource.diffparser.api.model.Diff} data structure.
+ * A parser that parses a unified diff from text into a {@link Diff} data structure.
  * <p/>
  * An example of a unified diff this parser can handle is the following:
  * <pre>

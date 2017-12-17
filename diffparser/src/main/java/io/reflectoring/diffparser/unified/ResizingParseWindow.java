@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.wickedsource.diffparser.unified;
+package io.reflectoring.diffparser.unified;
 
 import java.io.*;
 import java.util.ArrayList;
