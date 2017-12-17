@@ -52,6 +52,7 @@ import java.util.regex.Pattern;
  * Note that the TAB character and date after the file names are not being parsed but instead cut off.
  */
 public class UnifiedDiffParser implements DiffParser {
+    public static final Pattern LINE_RANGE_PATTERN = Pattern.compile("^.*-([0-9]+)(?:,([0-9]+))? \\+([0-9]+)(?:,([0-9]+))?.*$");
 
     @Override
     public List<Diff> parse(InputStream in) {
@@ -115,8 +116,7 @@ public class UnifiedDiffParser implements DiffParser {
     }
 
     private void parseHunkStart(Diff currentDiff, String currentLine) {
-        Pattern pattern = Pattern.compile("^.*-([0-9]+)(?:,([0-9]+))? \\+([0-9]+)(?:,([0-9]+))?.*$");
-        Matcher matcher = pattern.matcher(currentLine);
+        Matcher matcher = LINE_RANGE_PATTERN.matcher(currentLine);
         if (matcher.matches()) {
             String range1Start = matcher.group(1);
             String range1Count = (matcher.group(2) != null) ? matcher.group(2) : "1";
