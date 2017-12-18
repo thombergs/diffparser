@@ -1,3 +1,4 @@
-/diffparser/settings.xml
-/diffparser/diffparser.iml
+/diffparser.iml
+/build
 /.idea
+/.gradle

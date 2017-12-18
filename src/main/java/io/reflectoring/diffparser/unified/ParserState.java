@@ -15,10 +15,10 @@
  */
 package io.reflectoring.diffparser.unified;
 
+import static io.reflectoring.diffparser.api.UnifiedDiffParser.LINE_RANGE_PATTERN;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import static org.wickedsource.diffparser.api.UnifiedDiffParser.LINE_RANGE_PATTERN;
 
 /**
  * State machine for a parser parsing a unified diff.
