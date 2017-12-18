@@ -17,6 +17,7 @@ sourceCompatibility = 1.8
 ext{
     bintrayUser = System.getProperty("bintray.user")
     bintrayKey = System.getProperty("bintray.key")
+    buildNumber = System.getProperty("build.number")
 }
 
 dependencies {
@@ -103,6 +104,9 @@ artifactory {
     resolve {
         repoKey = 'jcenter'
     }
+
+    clientConfig.info.setBuildName('diffparser')
+    clientConfig.info.setBuildNumber(buildNumber)
 }
 
 

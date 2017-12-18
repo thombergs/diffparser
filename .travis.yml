@@ -26,9 +26,9 @@ jobs:
     # publish snapshot
     - stage: deploy
       language: java
-      script: ./gradlew artifactoryPublish -Dsnapshot=true -Dbintray.user=$BINTRAY_USER -Dbintray.key=$BINTRAY_KEY
+      script: ./gradlew artifactoryPublish -Dsnapshot=true -Dbintray.user=$BINTRAY_USER -Dbuild.number=$TRAVIS_BUILD_NUMBER
 
     # release a new version
     - stage: release
       language: java
-      script: ./gradlew
+      script: curl -d "" -X POST -u $BINTRAY_USER:$BINTRAY_KEY http://oss.jfrog.org/api/plugins/build/promote/snapshotsToBintray/diffparser/$TRAVIS_BUILD_NUMBER
