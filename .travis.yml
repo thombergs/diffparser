@@ -26,7 +26,7 @@ jobs:
     # publish snapshot
     - stage: deploy
       language: java
-      script: ./gradlew artifactoryPublish -Dsnapshot=true
+      script: ./gradlew artifactoryPublish -Dsnapshot=true -Dbintray.user=$BINTRAY_USER -Dbintray.key=$BINTRAY_KEY
 
     # release a new version
     - stage: release
