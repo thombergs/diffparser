@@ -15,6 +15,7 @@
  */
 package org.wickedsource.diffparser.api;
 
+import org.apache.commons.io.IOUtils;
 import org.wickedsource.diffparser.api.model.Diff;
 import org.wickedsource.diffparser.api.model.Hunk;
 import org.wickedsource.diffparser.api.model.Line;
@@ -169,7 +170,13 @@ public class UnifiedDiffParser implements DiffParser {
 
     @Override
     public List<Diff> parse(File file) throws IOException {
-        return parse(new FileInputStream(file));
+        InputStream stream = null;
+        try {
+            stream = new FileInputStream(file);
+            return parse(stream);
+        } finally {
+            IOUtils.closeQuietly(stream);
+        }
     }
 
 }
