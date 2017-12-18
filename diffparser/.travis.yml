@@ -1,0 +1,34 @@
+language: java
+
+sudo: false
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
+
+before_install:
+  - chmod +x gradlew
+
+stages:
+  - name: build
+  - name: deploy
+  - name: release
+    if: branch = release # only release when building the "release" branch
+
+jobs:
+  include:
+
+    # run gradle build
+    - stage: build
+      language: java
+      script: ./gradlew build
+
+    # publish snapshot
+    - stage: deploy
+      language: java
+      script: ./gradlew artifactoryPublish -Dsnapshot=true
+
+    # release a new version
+    - stage: release
+      language: java
+      script: ./gradlew
