@@ -18,6 +18,8 @@ package io.reflectoring.diffparser.unified;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.wickedsource.diffparser.api.UnifiedDiffParser.LINE_RANGE_PATTERN;
+
 /**
  * State machine for a parser parsing a unified diff.
  *
@@ -252,7 +254,7 @@ public enum ParserState {
     }
 
     protected boolean matchesHunkStartPattern(String line) {
-        return line.startsWith("@@") && line.endsWith("@@");
+        return LINE_RANGE_PATTERN.matcher(line).matches();
     }
 
     protected boolean matchesEndPattern(String line, ParseWindow window) {
