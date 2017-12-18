@@ -31,4 +31,4 @@ jobs:
     # release a new version
     - stage: release
       language: java
-      script: curl -d "" -X POST -u $BINTRAY_USER:$BINTRAY_KEY http://oss.jfrog.org/api/plugins/build/promote/snapshotsToBintray/diffparser/$TRAVIS_BUILD_NUMBER
+      script: curl --fail -d "" -X POST -u $BINTRAY_USER:$BINTRAY_KEY http://oss.jfrog.org/api/plugins/build/promote/snapshotsToBintray/diffparser/$TRAVIS_BUILD_NUMBER
