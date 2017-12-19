@@ -29,7 +29,6 @@ jobs:
       language: java
       script:
         - ./gradlew build artifactoryPublish -x test -Dsnapshot=true -Dbintray.user=$BINTRAY_USER -Dbintray.key=$BINTRAY_KEY -Dbuild.number=$TRAVIS_BUILD_NUMBER
-        - ./gradlew build artifactoryPublish -x test -Dsnapshot=true -Dbintray.user=$BINTRAY_USER -Dbintray.key=$BINTRAY_KEY -Dbuild.number=0800-FOO
 
     # release a new version
     - stage: release
