@@ -1,6 +1,6 @@
 # Promotes a snapshot to be released to bintray
 
-# This script is a wrapper around a simple curl command that captures the
+# This script is a wrapper around a simple curl command that displays the
 # JSON result of the HTTP request and returns a non-zero return code in case
 # of an HTTP error. Both at once is not possible with curl alone.
 
