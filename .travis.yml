@@ -8,6 +8,7 @@ addons:
 
 before_install:
   - chmod +x gradlew
+  - chmod +x release.sh
 
 stages:
   - name: build
@@ -30,5 +31,4 @@ jobs:
 
     # release a new version
     - stage: release
-      language: java
-      script: curl --fail -d "" -X POST -u $BINTRAY_USER:$BINTRAY_KEY http://oss.jfrog.org/api/plugins/build/promote/snapshotsToBintray/diffparser/$TRAVIS_BUILD_NUMBER
+      script: ./release.sh diffparser $TRAVIS_BUILD_NUMBER $BINTRAY_USER $BINTRAY_KEY
