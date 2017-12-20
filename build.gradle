@@ -1,6 +1,7 @@
 plugins {
     id "java"
     id "com.jfrog.artifactory" version "4.5.4"
+    id "com.jfrog.bintray" version "1.7.3"
     id "maven-publish"
 }
 
@@ -104,9 +105,29 @@ artifactory {
     resolve {
         repoKey = 'jcenter'
     }
+    clientConfig.info.setBuildName('diffparser')
+    clientConfig.info.setBuildNumber(buildNumber)
+}
 
-//    clientConfig.info.setBuildName('diffparser')
-//    clientConfig.info.setBuildNumber(buildNumber)
+bintray {
+    user = bintrayUser
+    key = bintrayKey
+    publications = ['mavenPublication']
+
+    pkg {
+        repo = 'maven-releases'
+        name = 'diffparser'
+        userOrg = 'reflectoring'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/thombergs/diffparser'
+        version {
+            name = project.version
+            desc = "build ${buildNumber}"
+            released  = new Date()
+        }
+    }
+
+    publish = true
 }
 
 

@@ -24,12 +24,11 @@ jobs:
       language: java
       script: ./gradlew build
 
-    # publish snapshot
+    # publish snapshot to oss.jfrog.org
     - stage: deploy
       language: java
-      script:
-        - ./gradlew build artifactoryPublish -x test -Dsnapshot=true -Dbintray.user=$BINTRAY_USER -Dbintray.key=$BINTRAY_KEY -Dbuild.number=$TRAVIS_BUILD_NUMBER
+      script: ./gradlew artifactoryPublish -x test -Dsnapshot=true -Dbintray.user=$BINTRAY_USER -Dbintray.key=$BINTRAY_KEY -Dbuild.number=$TRAVIS_BUILD_NUMBER
 
-    # release a new version
+    # release a new version to bintray
     - stage: release
-      script: ./release.sh diffparser $TRAVIS_BUILD_NUMBER $BINTRAY_USER $BINTRAY_KEY
+      script: ./gradlew bintrayPublish -x test -Dbintray.user=$BINTRAY_USER -Dbintray.key=$BINTRAY_KEY -Dbuild.number=$TRAVIS_BUILD_NUMBER
