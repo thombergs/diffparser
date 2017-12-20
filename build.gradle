@@ -105,8 +105,8 @@ artifactory {
         repoKey = 'jcenter'
     }
 
-    clientConfig.info.setBuildName('diffparser')
-    clientConfig.info.setBuildNumber(buildNumber)
+//    clientConfig.info.setBuildName('diffparser')
+//    clientConfig.info.setBuildNumber(buildNumber)
 }
 
 
