@@ -100,16 +100,14 @@ artifactory {
             publications('mavenPublication')
             publishArtifacts = true
             publishPom = true
+            properties = [
+                    'build.number': buildNumber,
+                    'build.name': 'diffparser'
+            ]
         }
     }
     resolve {
         repoKey = 'jcenter'
-    }
-    defaults {
-        properties = [
-                'build.number': buildNumber,
-                'build.name': 'diffparser'
-        ]
     }
 }
 
