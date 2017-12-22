@@ -8,7 +8,6 @@ addons:
 
 before_install:
   - chmod +x gradlew
-  - chmod +x release.sh
 
 stages:
   - name: build
