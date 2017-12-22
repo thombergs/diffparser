@@ -105,8 +105,12 @@ artifactory {
     resolve {
         repoKey = 'jcenter'
     }
-    clientConfig.info.setBuildName('diffparser')
-    clientConfig.info.setBuildNumber(buildNumber)
+    defaults {
+        properties = [
+                'build.number': buildNumber,
+                'build.name': 'diffparser'
+        ]
+    }
 }
 
 bintray {
