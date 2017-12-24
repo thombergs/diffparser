@@ -12,10 +12,10 @@ before_install:
 
 stages:
   - name: build
-  - name: publish-snapshot
+  - name: snapshot
     # only publish snapshots from "master" branch
     if: branch = master
-  - name: publish-release
+  - name: release
     # only publish release from "release" branch
     if: branch = release
 
@@ -27,9 +27,9 @@ jobs:
       script: ./gradlew build
 
     # publish snapshot to oss.jfrog.org
-    - stage: publish-snapshot
+    - stage: snapshot
       script: ./gradlew artifactoryPublish -x test -Dsnapshot=true -Dbintray.user=$BINTRAY_USER -Dbintray.key=$BINTRAY_KEY -Dbuild.number=$TRAVIS_BUILD_NUMBER
 
     # release a new stable version to bintray
-    - stage: publish-release
+    - stage: release
       script: ./gradlew bintrayUpload -x test -Dbintray.user=$BINTRAY_USER -Dbintray.key=$BINTRAY_KEY -Dbuild.number=$TRAVIS_BUILD_NUMBER

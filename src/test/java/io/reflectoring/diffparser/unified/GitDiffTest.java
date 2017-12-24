@@ -1,7 +1,7 @@
 /*
  * Copyright (c) Crosskey Banking Solutions. All rights reserved.
  */
-package org.wickedsource.diffparser.unified;
+package io.reflectoring.diffparser.unified;
 
 import io.reflectoring.diffparser.api.DiffParser;
 import io.reflectoring.diffparser.api.UnifiedDiffParser;
