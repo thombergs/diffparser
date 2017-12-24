@@ -1,4 +1,5 @@
 language: java
+install: true
 
 sudo: false
 addons:
@@ -11,23 +12,24 @@ before_install:
 
 stages:
   - name: build
-  - name: deploy
-  - name: release
-    if: branch = release # only release when building the "release" branch
+  - name: publish-snapshot
+    # only publish snapshots from "master" branch
+    if: branch = master
+  - name: publish-release
+    # only publish release from "release" branch
+    if: branch = release
 
 jobs:
   include:
 
     # run gradle build
     - stage: build
-      language: java
       script: ./gradlew build
 
     # publish snapshot to oss.jfrog.org
-    - stage: deploy
-      language: java
+    - stage: publish-snapshot
       script: ./gradlew artifactoryPublish -x test -Dsnapshot=true -Dbintray.user=$BINTRAY_USER -Dbintray.key=$BINTRAY_KEY -Dbuild.number=$TRAVIS_BUILD_NUMBER
 
-    # release a new version to bintray
-    - stage: release
+    # release a new stable version to bintray
+    - stage: publish-release
       script: ./gradlew bintrayUpload -x test -Dbintray.user=$BINTRAY_USER -Dbintray.key=$BINTRAY_KEY -Dbuild.number=$TRAVIS_BUILD_NUMBER
