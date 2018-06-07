@@ -1,7 +1,8 @@
 package io.reflectoring.diffparser.unified;
 
 import io.reflectoring.diffparser.api.model.Line;
-import junit.framework.Assert;
+
+import static org.testng.Assert.assertEquals;
 
 class TestUtil {
 
@@ -11,7 +12,7 @@ class TestUtil {
     }
 
     static void assertLine(Line actualLine, Line.LineType expectedType, String expectedContent) {
-        Assert.assertEquals(expectedType, actualLine.getLineType());
-        Assert.assertEquals(expectedContent, actualLine.getContent());
+        assertEquals(expectedType, actualLine.getLineType());
+        assertEquals(expectedContent, actualLine.getContent());
     }
 }

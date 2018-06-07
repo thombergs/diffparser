@@ -30,6 +30,10 @@ public class Diff {
 
     private String toFileName;
 
+    private boolean fromFileIncomplete;
+
+    private boolean toFileIncomplete;
+
     private List<String> headerLines = new ArrayList<>();
 
     private List<Hunk> hunks = new ArrayList<>();
@@ -76,6 +80,34 @@ public class Diff {
         return hunks;
     }
 
+    /**
+     * Reflects whether the first file has an incomplete trailing line reported by the diff, i.e. whether
+     * the first file doesn't end with a newline character.
+     * <p>
+     * Note that the diff tools don't stick to a common rule regarding when to report the lack of trailing
+     * newline character, e.g. some tools report about it only when it differs between the compared files
+     * while others report always.
+     *
+     * @return {@code true} if the diff reported no newline at end of the first file
+     */
+    public boolean isFromFileIncomplete() {
+        return fromFileIncomplete;
+    }
+
+    /**
+     * Reflects whether the second file has an incomplete trailing line reported by the diff, i.e. whether
+     * the second file doesn't end with a newline character.
+     * <p>
+     * Note that the diff tools don't stick to a common rule regarding when to report the lack of trailing
+     * newline character, e.g. some tools report about it only when it differs between the compared files
+     * while others report always.
+     *
+     * @return {@code true} if the diff reported no newline at end of the second file
+     */
+    public boolean isToFileIncomplete() {
+        return toFileIncomplete;
+    }
+
     public void setFromFileName(String fromFileName) {
         this.fromFileName = fromFileName;
     }
@@ -86,6 +118,14 @@ public class Diff {
 
     public void setHunks(List<Hunk> hunks) {
         this.hunks = hunks;
+    }
+
+    public void setFromFileIncomplete(boolean fromFileIncomplete) {
+        this.fromFileIncomplete = fromFileIncomplete;
+    }
+
+    public void setToFileIncomplete(boolean toFileIncomplete) {
+        this.toFileIncomplete = toFileIncomplete;
     }
 
     /**

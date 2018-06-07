@@ -110,13 +110,25 @@ public class UnifiedDiffParser implements DiffParser {
     }
 
     private void parseToLine(Diff currentDiff, String currentLine) {
-        Line toLine = new Line(Line.LineType.TO, currentLine.substring(1));
-        currentDiff.getLatestHunk().getLines().add(toLine);
+        if (isIncompleteMarker(currentLine)) {
+            currentDiff.setToFileIncomplete(true);
+        } else {
+            Line toLine = new Line(Line.LineType.TO, currentLine.substring(1));
+            currentDiff.getLatestHunk().getLines().add(toLine);
+        }
     }
 
     private void parseFromLine(Diff currentDiff, String currentLine) {
-        Line fromLine = new Line(Line.LineType.FROM, currentLine.substring(1));
-        currentDiff.getLatestHunk().getLines().add(fromLine);
+        if (isIncompleteMarker(currentLine)) {
+            currentDiff.setFromFileIncomplete(true);
+        } else {
+            Line fromLine = new Line(Line.LineType.FROM, currentLine.substring(1));
+            currentDiff.getLatestHunk().getLines().add(fromLine);
+        }
+    }
+
+    private boolean isIncompleteMarker(String line) {
+        return line.charAt(0) == '\\';
     }
 
     private void parseHunkStart(Diff currentDiff, String currentLine) {

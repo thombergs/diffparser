@@ -12,7 +12,7 @@ repositories {
 }
 
 // run gradle with "-Dsnapshot=true" to automatically append "-SNAPSHOT" to the version
-version = '1.5' + (Boolean.valueOf(System.getProperty("snapshot")) ? "-SNAPSHOT" : "")
+version = '2.0' + (Boolean.valueOf(System.getProperty("snapshot")) ? "-SNAPSHOT" : "")
 sourceCompatibility = 1.8
 
 ext{
@@ -24,7 +24,7 @@ ext{
 dependencies {
     compile('org.slf4j:slf4j-api:1.7.25')
     testCompile('org.slf4j:slf4j-log4j12:1.7.25')
-    testCompile('org.testng:testng:6.8.7')
+    testCompile('org.testng:testng:6.14.3')
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
