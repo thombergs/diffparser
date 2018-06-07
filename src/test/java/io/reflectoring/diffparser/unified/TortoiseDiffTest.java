@@ -45,13 +45,12 @@ public class TortoiseDiffTest {
 
         List<Line> lines = hunk1.getLines();
         Assert.assertEquals(6, lines.size());
-        Assert.assertEquals(Line.LineType.NEUTRAL, lines.get(0).getLineType());
-        Assert.assertEquals(Line.LineType.FROM, lines.get(1).getLineType());
-        Assert.assertEquals(Line.LineType.TO, lines.get(2).getLineType());
-        Assert.assertEquals(Line.LineType.NEUTRAL, lines.get(3).getLineType());
-        Assert.assertEquals(Line.LineType.FROM, lines.get(4).getLineType());
-        Assert.assertEquals(Line.LineType.NEUTRAL, lines.get(5).getLineType());
-
+        TestUtil.assertLine(lines.get(0), Line.LineType.NEUTRAL, "test1");
+        TestUtil.assertLine(lines.get(1), Line.LineType.FROM, "test1");
+        TestUtil.assertLine(lines.get(2), Line.LineType.TO, "test234");
+        TestUtil.assertLine(lines.get(3), Line.LineType.NEUTRAL, "");
+        TestUtil.assertLine(lines.get(4), Line.LineType.FROM, "test1");
+        TestUtil.assertLine(lines.get(5), Line.LineType.NEUTRAL, " No newline at end of file");
     }
 
     @Test
