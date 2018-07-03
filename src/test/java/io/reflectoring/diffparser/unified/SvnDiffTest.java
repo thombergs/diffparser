@@ -45,10 +45,10 @@ public class SvnDiffTest {
 
         List<Line> lines = hunk1.getLines();
         Assert.assertEquals(16, lines.size());
-        Assert.assertEquals(Line.LineType.TO, lines.get(3).getLineType());
-        Assert.assertEquals(Line.LineType.FROM, lines.get(7).getLineType());
-        Assert.assertEquals(Line.LineType.TO, lines.get(8).getLineType());
-
+        TestUtil.assertLine(lines.get(2), Line.LineType.NEUTRAL, "                case TO_FILE:");
+        TestUtil.assertLine(lines.get(3), Line.LineType.TO, "\t\t\t\t\tnew line");
+        TestUtil.assertLine(lines.get(7), Line.LineType.FROM, "                    parseHunkStart(currentDiff, currentLine);");
+        TestUtil.assertLine(lines.get(8), Line.LineType.TO, "                    changedLine(currentDiff, currentLine);");
     }
 
     @Test

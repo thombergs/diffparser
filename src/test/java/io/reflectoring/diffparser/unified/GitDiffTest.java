@@ -47,7 +47,8 @@ public class GitDiffTest {
 
         List<Line> lines = hunk1.getLines();
         assertEquals(8, lines.size());
-        assertEquals(Line.LineType.FROM, lines.get(3).getLineType());
-        assertEquals(Line.LineType.TO, lines.get(4).getLineType());
+        TestUtil.assertLine(lines.get(2), Line.LineType.NEUTRAL, "    <artifactId>diffparser</artifactId>");
+        TestUtil.assertLine(lines.get(3), Line.LineType.FROM, "    <version>1.1-SNAPSHOT</version>");
+        TestUtil.assertLine(lines.get(4), Line.LineType.TO, "    <version>1.0</version>");
     }
 }

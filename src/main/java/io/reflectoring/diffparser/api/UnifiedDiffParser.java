@@ -101,7 +101,11 @@ public class UnifiedDiffParser implements DiffParser {
     }
 
     private void parseNeutralLine(Diff currentDiff, String currentLine) {
-        Line line = new Line(Line.LineType.NEUTRAL, currentLine);
+        // Neutral line should have a space as its first character,
+        // however not all tools seem to obey this rule for empty lines (see Tortoise diff),
+        // so let's strip the first character if present.
+        String content = currentLine.substring(Math.min(1, currentLine.length()));
+        Line line = new Line(Line.LineType.NEUTRAL, content);
         currentDiff.getLatestHunk().getLines().add(line);
     }
 
