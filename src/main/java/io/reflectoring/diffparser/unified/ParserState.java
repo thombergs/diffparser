@@ -133,7 +133,9 @@ public enum ParserState {
         @Override
         public ParserState nextState(ParseWindow window) {
             String line = window.getFocusLine();
-            if (matchesFromLinePattern(line)) {
+            if (matchesFromLinePattern(line) || matchesIncompleteLinePattern(line)) {
+                // Incomplete line always follows the line from the same side of the diff,
+                // so there's no actual state transition
                 logTransition(line, FROM_LINE, FROM_LINE);
                 return FROM_LINE;
             } else if (matchesToLinePattern(line)) {
@@ -166,7 +168,9 @@ public enum ParserState {
             if (matchesFromLinePattern(line)) {
                 logTransition(line, TO_LINE, FROM_LINE);
                 return FROM_LINE;
-            } else if (matchesToLinePattern(line)) {
+            } else if (matchesToLinePattern(line) || matchesIncompleteLinePattern(line)) {
+                // Incomplete line always follows the line from the same side of the diff,
+                // so there's no actual state transition
                 logTransition(line, TO_LINE, TO_LINE);
                 return TO_LINE;
             } else if (matchesEndPattern(line, window)) {
@@ -251,6 +255,10 @@ public enum ParserState {
 
     protected boolean matchesToLinePattern(String line) {
         return line.startsWith("+");
+    }
+
+    protected boolean matchesIncompleteLinePattern(String line) {
+        return line.startsWith("\\");
     }
 
     protected boolean matchesHunkStartPattern(String line) {

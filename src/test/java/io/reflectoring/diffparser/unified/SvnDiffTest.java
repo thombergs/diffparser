@@ -2,22 +2,26 @@ package io.reflectoring.diffparser.unified;
 
 import io.reflectoring.diffparser.api.DiffParser;
 import io.reflectoring.diffparser.api.UnifiedDiffParser;
-import junit.framework.Assert;
 import org.testng.annotations.Test;
 import io.reflectoring.diffparser.api.model.Diff;
 import io.reflectoring.diffparser.api.model.Hunk;
 import io.reflectoring.diffparser.api.model.Line;
 
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import static io.reflectoring.diffparser.unified.TestUtil.assertLine;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.AssertJUnit.assertEquals;
+
 /**
- * Tests the DiffParser with a diff created by the "svn diff" command.
+ * Tests the {@link UnifiedDiffParser} with a diff created by the {@code svn diff} command.
  */
 public class SvnDiffTest {
 
     @Test
-    public void testParse() throws Exception {
+    public void testParse() {
         // given
         DiffParser parser = new UnifiedDiffParser();
         InputStream in = getClass().getResourceAsStream("svn.diff");
@@ -26,33 +30,33 @@ public class SvnDiffTest {
         List<Diff> diffs = parser.parse(in);
 
         // then
-        Assert.assertNotNull(diffs);
-        Assert.assertEquals(2, diffs.size());
+        assertNotNull(diffs);
+        assertEquals(2, diffs.size());
 
         Diff diff1 = diffs.get(0);
-        Assert.assertEquals("UnifiedDiffParser.java", diff1.getFromFileName());
-        Assert.assertEquals("UnifiedDiffParser.java", diff1.getToFileName());
-        Assert.assertEquals(1, diff1.getHunks().size());
+        assertEquals("UnifiedDiffParser.java", diff1.getFromFileName());
+        assertEquals("UnifiedDiffParser.java", diff1.getToFileName());
+        assertEquals(1, diff1.getHunks().size());
 
         List<String> headerLines = diff1.getHeaderLines();
-        Assert.assertEquals(2, headerLines.size());
+        assertEquals(2, headerLines.size());
 
         Hunk hunk1 = diff1.getHunks().get(0);
-        Assert.assertEquals(73, hunk1.getFromFileRange().getLineStart());
-        Assert.assertEquals(13, hunk1.getFromFileRange().getLineCount());
-        Assert.assertEquals(73, hunk1.getToFileRange().getLineStart());
-        Assert.assertEquals(13, hunk1.getToFileRange().getLineCount());
+        assertEquals(73, hunk1.getFromFileRange().getLineStart());
+        assertEquals(13, hunk1.getFromFileRange().getLineCount());
+        assertEquals(73, hunk1.getToFileRange().getLineStart());
+        assertEquals(13, hunk1.getToFileRange().getLineCount());
 
         List<Line> lines = hunk1.getLines();
-        Assert.assertEquals(16, lines.size());
-        Assert.assertEquals(Line.LineType.TO, lines.get(3).getLineType());
-        Assert.assertEquals(Line.LineType.FROM, lines.get(7).getLineType());
-        Assert.assertEquals(Line.LineType.TO, lines.get(8).getLineType());
-
+        assertEquals(16, lines.size());
+        assertLine(lines.get(2), Line.LineType.NEUTRAL, "                case TO_FILE:");
+        assertLine(lines.get(3), Line.LineType.TO, "\t\t\t\t\tnew line");
+        assertLine(lines.get(7), Line.LineType.FROM, "                    parseHunkStart(currentDiff, currentLine);");
+        assertLine(lines.get(8), Line.LineType.TO, "                    changedLine(currentDiff, currentLine);");
     }
 
     @Test
-    public void testParse_WhenHunkRangeLineCountNotSpecified_ShouldSetHunkRangeLineCountToOne() throws Exception {
+    public void testParse_WhenHunkRangeLineCountNotSpecified_ShouldSetHunkRangeLineCountToOne() {
         // given
         DiffParser parser = new UnifiedDiffParser();
         String in = ""
@@ -64,22 +68,22 @@ public class SvnDiffTest {
             + "\n";
 
         // when
-        List<Diff> diffs = parser.parse(in.getBytes());
+        List<Diff> diffs = parser.parse(in.getBytes(StandardCharsets.UTF_8));
 
         // then
-        Assert.assertNotNull(diffs);
-        Assert.assertEquals(1, diffs.size());
+        assertNotNull(diffs);
+        assertEquals(1, diffs.size());
 
         Diff diff1 = diffs.get(0);
-        Assert.assertEquals(1, diff1.getHunks().size());
+        assertEquals(1, diff1.getHunks().size());
 
         Hunk hunk1 = diff1.getHunks().get(0);
-        Assert.assertEquals(1, hunk1.getFromFileRange().getLineCount());
-        Assert.assertEquals(1, hunk1.getToFileRange().getLineCount());
+        assertEquals(1, hunk1.getFromFileRange().getLineCount());
+        assertEquals(1, hunk1.getToFileRange().getLineCount());
     }
 
     @Test
-    public void testParse_WhenInputDoesNotEndWithEmptyLine_ShouldTransitionToEndState() throws Exception {
+    public void testParse_WhenInputDoesNotEndWithEmptyLine_ShouldTransitionToEndState() {
         // given
         DiffParser parser = new UnifiedDiffParser();
         String in = ""
@@ -90,13 +94,13 @@ public class SvnDiffTest {
             + "+to\n";
 
         // when
-        List<Diff> diffs = parser.parse(in.getBytes());
+        List<Diff> diffs = parser.parse(in.getBytes(StandardCharsets.UTF_8));
 
         // then
-        Assert.assertNotNull(diffs);
-        Assert.assertEquals(1, diffs.size());
+        assertNotNull(diffs);
+        assertEquals(1, diffs.size());
 
         Diff diff1 = diffs.get(0);
-        Assert.assertEquals(1, diff1.getHunks().size());
+        assertEquals(1, diff1.getHunks().size());
     }
 }
