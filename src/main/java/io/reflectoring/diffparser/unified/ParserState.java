@@ -238,7 +238,7 @@ public enum ParserState {
     }
 
     protected boolean matchesFromFilePattern(String line) {
-        return line.startsWith("---");
+        return line.startsWith("--- ");
     }
 
     protected boolean matchesToFilePattern(String line) {
