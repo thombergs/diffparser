@@ -173,12 +173,8 @@ public class UnifiedDiffParser implements DiffParser {
 
     @Override
     public List<Diff> parse(File file) throws IOException {
-        FileInputStream in = new FileInputStream(file);
-        try{
+        try(FileInputStream in = new FileInputStream(file)) {
           return parse(in);
-        } finally {
-          in.close();
         }
     }
-
 }
