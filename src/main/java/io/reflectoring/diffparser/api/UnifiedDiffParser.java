@@ -15,18 +15,22 @@
  */
 package io.reflectoring.diffparser.api;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import io.reflectoring.diffparser.api.model.Diff;
 import io.reflectoring.diffparser.api.model.Hunk;
 import io.reflectoring.diffparser.api.model.Line;
 import io.reflectoring.diffparser.api.model.Range;
 import io.reflectoring.diffparser.unified.ParserState;
 import io.reflectoring.diffparser.unified.ResizingParseWindow;
-
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * A parser that parses a unified diff from text into a {@link Diff} data structure.
@@ -101,7 +105,7 @@ public class UnifiedDiffParser implements DiffParser {
     }
 
     private void parseNeutralLine(Diff currentDiff, String currentLine) {
-        Line line = new Line(Line.LineType.NEUTRAL, currentLine);
+        Line line = new Line(Line.LineType.NEUTRAL, currentLine.substring(1));
         currentDiff.getLatestHunk().getLines().add(line);
     }
 
@@ -169,12 +173,8 @@ public class UnifiedDiffParser implements DiffParser {
 
     @Override
     public List<Diff> parse(File file) throws IOException {
-        FileInputStream in = new FileInputStream(file);
-        try{
+        try(FileInputStream in = new FileInputStream(file)) {
           return parse(in);
-        } finally {
-          in.close();
         }
     }
-
 }

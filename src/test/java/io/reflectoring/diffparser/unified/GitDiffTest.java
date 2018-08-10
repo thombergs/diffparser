@@ -3,51 +3,54 @@
  */
 package io.reflectoring.diffparser.unified;
 
-import io.reflectoring.diffparser.api.DiffParser;
-import io.reflectoring.diffparser.api.UnifiedDiffParser;
-import io.reflectoring.diffparser.api.model.Diff;
-import io.reflectoring.diffparser.api.model.Hunk;
-import io.reflectoring.diffparser.api.model.Line;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
+
 import java.io.InputStream;
 import java.util.List;
 
 import org.testng.annotations.Test;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
+import io.reflectoring.diffparser.api.DiffParser;
+import io.reflectoring.diffparser.api.UnifiedDiffParser;
+import io.reflectoring.diffparser.api.model.Diff;
+import io.reflectoring.diffparser.api.model.Hunk;
+import io.reflectoring.diffparser.api.model.Line;
 
-public class GitDiffTest {
+public class GitDiffTest
+{
 
-    @Test
-    public void testParse() {
-        // given
-        DiffParser parser = new UnifiedDiffParser();
-        InputStream in = getClass().getResourceAsStream("git.diff");
+  @Test
+  public void testParse()
+  {
+    // given
+    DiffParser parser = new UnifiedDiffParser();
+    InputStream in = getClass().getResourceAsStream("git.diff");
 
-        // when
-        List<Diff> diffs = parser.parse(in);
+    // when
+    List<Diff> diffs = parser.parse(in);
 
-        // then
-        assertNotNull(diffs);
-        assertEquals(3, diffs.size());
+    // then
+    assertNotNull(diffs);
+    assertEquals(diffs.size(), 3);
 
-        Diff diff1 = diffs.get(0);
-        assertEquals("a/diffparser/pom.xml", diff1.getFromFileName());
-        assertEquals("b/diffparser/pom.xml", diff1.getToFileName());
-        assertEquals(2, diff1.getHunks().size());
+    Diff diff1 = diffs.get(0);
+    assertEquals("a/diffparser/pom.xml", diff1.getFromFileName());
+    assertEquals("b/diffparser/pom.xml", diff1.getToFileName());
+    assertEquals(diff1.getHunks().size(), 2);
 
-        List<String> headerLines = diff1.getHeaderLines();
-        assertEquals(2, headerLines.size());
+    List<String> headerLines = diff1.getHeaderLines();
+    assertEquals(headerLines.size(), 2);
 
-        Hunk hunk1 = diff1.getHunks().get(0);
-        assertEquals(6, hunk1.getFromFileRange().getLineStart());
-        assertEquals(7, hunk1.getFromFileRange().getLineCount());
-        assertEquals(6, hunk1.getToFileRange().getLineStart());
-        assertEquals(7, hunk1.getToFileRange().getLineCount());
+    Hunk hunk1 = diff1.getHunks().get(0);
+    assertEquals(hunk1.getFromFileRange().getLineStart(), 6);
+    assertEquals(hunk1.getFromFileRange().getLineCount(), 7);
+    assertEquals(hunk1.getToFileRange().getLineStart(), 6);
+    assertEquals(hunk1.getToFileRange().getLineCount(), 7);
 
-        List<Line> lines = hunk1.getLines();
-        assertEquals(8, lines.size());
-        assertEquals(Line.LineType.FROM, lines.get(3).getLineType());
-        assertEquals(Line.LineType.TO, lines.get(4).getLineType());
-    }
+    List<Line> lines = hunk1.getLines();
+    assertEquals(lines.size(), 8);
+    assertEquals(lines.get(3).getLineType(), Line.LineType.FROM);
+    assertEquals(lines.get(4).getLineType(), Line.LineType.TO);
+  }
 }

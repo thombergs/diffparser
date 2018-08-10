@@ -1,15 +1,16 @@
 package io.reflectoring.diffparser.unified;
 
-import io.reflectoring.diffparser.api.DiffParser;
-import io.reflectoring.diffparser.api.UnifiedDiffParser;
-import io.reflectoring.diffparser.api.model.Hunk;
-import junit.framework.Assert;
-import org.testng.annotations.Test;
-import io.reflectoring.diffparser.api.model.Diff;
-import io.reflectoring.diffparser.api.model.Line;
-
 import java.io.InputStream;
 import java.util.List;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import io.reflectoring.diffparser.api.DiffParser;
+import io.reflectoring.diffparser.api.UnifiedDiffParser;
+import io.reflectoring.diffparser.api.model.Diff;
+import io.reflectoring.diffparser.api.model.Hunk;
+import io.reflectoring.diffparser.api.model.Line;
 
 /**
  * Tests the diffparser with a diff created by Tortoise SVN.
