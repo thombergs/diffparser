@@ -251,11 +251,12 @@ public enum ParserState {
 
     protected boolean matchesToLinePattern(String line) {
         return line.startsWith("+");
-    }
+  }
 
-    protected boolean matchesHunkStartPattern(String line) {
-        return LINE_RANGE_PATTERN.matcher(line).matches();
-    }
+  protected boolean matchesHunkStartPattern(String line)
+  {
+    return LINE_RANGE_PATTERN.matcher(line).matches();
+  }
 
     protected boolean matchesEndPattern(String line, ParseWindow window) {
         if ("".equals(line.trim())) {
@@ -282,14 +283,15 @@ public enum ParserState {
             // some diff tools like "svn diff" do not put an empty line between two diffs
             // we add that empty line and call the method again
             String nextFromFileLine = window.getFutureLine(3);
-            if(nextFromFileLine != null && matchesFromFilePattern(nextFromFileLine)){
+          if (nextFromFileLine != null
+                  && (matchesFromFilePattern(nextFromFileLine)
+                  || matchesToFilePattern(nextFromFileLine)))
+          {
                 window.addLine(1, "");
                 return matchesEndPattern(line, window);
             }else{
                 return false;
             }
         }
-    }
-
-
+  }
 }
