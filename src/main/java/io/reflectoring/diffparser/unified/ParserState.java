@@ -252,8 +252,9 @@ public enum ParserState {
     protected boolean matchesToLinePattern(String line) {
         return line.startsWith("+");
     }
-
-    protected boolean matchesHunkStartPattern(String line) {
+    
+  protected boolean matchesHunkStartPattern(String line)
+  {
         return LINE_RANGE_PATTERN.matcher(line).matches();
     }
 
@@ -279,6 +280,9 @@ public enum ParserState {
             // We reached the end of the stream.
             return true;
         } else {
+            if(line.trim().toLowerCase().startsWith("index")){
+              return true;
+            }
             // some diff tools like "svn diff" do not put an empty line between two diffs
             // we add that empty line and call the method again
             String nextFromFileLine = window.getFutureLine(3);
