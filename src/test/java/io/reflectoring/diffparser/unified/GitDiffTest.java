@@ -46,8 +46,10 @@ public class GitDiffTest {
         assertEquals(7, hunk1.getToFileRange().getLineCount());
 
         List<Line> lines = hunk1.getLines();
-        assertEquals(8, lines.size());
+        assertEquals(10, lines.size());
         assertEquals(Line.LineType.FROM, lines.get(3).getLineType());
         assertEquals(Line.LineType.TO, lines.get(4).getLineType());
+        assertEquals(Line.LineType.NEUTRAL, lines.get(5).getLineType());
+        assertEquals(Line.LineType.FROM, lines.get(6).getLineType());
     }
 }
