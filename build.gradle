@@ -13,6 +13,7 @@ repositories {
 
 // run gradle with "-Dsnapshot=true" to automatically append "-SNAPSHOT" to the version
 version = '1.5' + (Boolean.valueOf(System.getProperty("snapshot")) ? "-SNAPSHOT" : "")
+group = 'io.reflectoring.diffparser'
 sourceCompatibility = 1.8
 
 ext{
