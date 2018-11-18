@@ -29,7 +29,8 @@ Index: UnifiedDiffParserTest.java
          DiffParser parser = new UnifiedDiffParser();
 -        InputStream in = getClass().getResourceAsStream("svnlog.diff");
 -
-+       
++
+----
          // when
          List<Diff> diffs = parser.parse(in);
  
