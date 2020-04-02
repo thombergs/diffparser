@@ -62,6 +62,24 @@ public enum ParserState {
     },
 
     /**
+     * The parser is in this state if it is currently parsing a header line,
+     * which immediately followed another diff, with the "end" diff delimiter.
+     */
+    END_HEADER {
+        @Override
+        public ParserState nextState(ParseWindow window) {
+            String line = window.getFocusLine();
+            if (matchesFromFilePattern(line)) {
+                logTransition(line, HEADER, FROM_FILE);
+                return FROM_FILE;
+            } else {
+                logTransition(line, HEADER, HEADER);
+                return HEADER;
+            }
+        }
+    },
+
+    /**
      * The parser is in this state if it is currently parsing the line containing the "from" file.
      * <p/>
      * Example line:<br/>
@@ -142,6 +160,9 @@ public enum ParserState {
             } else if (matchesEndPattern(line, window)) {
                 logTransition(line, FROM_LINE, END);
                 return END;
+            } else if (matchesHeaderPattern(line, window)) {
+                logTransition(line, FROM_LINE, END_HEADER);
+                return END_HEADER;
             } else if (matchesHunkStartPattern(line)) {
                 logTransition(line, FROM_LINE, HUNK_START);
                 return HUNK_START;
@@ -172,6 +193,9 @@ public enum ParserState {
             } else if (matchesEndPattern(line, window)) {
                 logTransition(line, TO_LINE, END);
                 return END;
+            } else if (matchesHeaderPattern(line, window)) {
+                logTransition(line, TO_LINE, END_HEADER);
+                return END_HEADER;
             } else if (matchesHunkStartPattern(line)) {
                 logTransition(line, TO_LINE, HUNK_START);
                 return HUNK_START;
@@ -199,6 +223,9 @@ public enum ParserState {
             } else if (matchesEndPattern(line, window)) {
                 logTransition(line, NEUTRAL_LINE, END);
                 return END;
+            } else if (matchesHeaderPattern(line, window)) {
+                logTransition(line, NEUTRAL_LINE, END_HEADER);
+                return END_HEADER;
             } else if (matchesHunkStartPattern(line)) {
                 logTransition(line, NEUTRAL_LINE, HUNK_START);
                 return HUNK_START;
@@ -217,8 +244,8 @@ public enum ParserState {
         @Override
         public ParserState nextState(ParseWindow window) {
             String line = window.getFocusLine();
-            logTransition(line, END, INITIAL);
-            return INITIAL;
+            logTransition(line, END, HEADER);
+            return HEADER;
         }
     };
 
@@ -272,6 +299,12 @@ public enum ParserState {
                     // We found another newline after the current newline without a start of a new diff in between. That makes the
                     // current line just a newline within the current diff.
                     return false;
+                } else if (matchesHunkStartPattern(futureLine) ||
+                           matchesFromLinePattern(futureLine) ||
+                           matchesToLinePattern(futureLine)) {
+                    // We found an added/removed line, or another hunk start - this
+                    // was just a neutral line in the middle of a hunk.
+                    return false;
                 } else {
                     i++;
                 }
@@ -279,17 +312,19 @@ public enum ParserState {
             // We reached the end of the stream.
             return true;
         } else {
-            // some diff tools like "svn diff" do not put an empty line between two diffs
-            // we add that empty line and call the method again
-            String nextFromFileLine = window.getFutureLine(3);
-            if(nextFromFileLine != null && matchesFromFilePattern(nextFromFileLine)){
-                window.addLine(1, "");
-                return matchesEndPattern(line, window);
-            }else{
-                return false;
-            }
+            return false;
         }
     }
 
+    protected boolean matchesHeaderPattern(String line, ParseWindow window) {
+        // some diff tools like "svn diff" do not put an empty line between two diffs
+        // we add that empty line and call the method again
+        String nextFromFileLine = window.getFutureLine(2);
+        if(nextFromFileLine != null && matchesFromFilePattern(nextFromFileLine)){
+            return matchesEndPattern("", window);
+        }else{
+            return false;
+        }
+    }
 
 }
