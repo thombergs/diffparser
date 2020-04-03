@@ -67,6 +67,9 @@ public class UnifiedDiffParser implements DiffParser {
                 case INITIAL:
                     // nothing to do
                     break;
+                case END_HEADER:
+                    parsedDiffs.add(currentDiff);
+                    currentDiff = new Diff();
                 case HEADER:
                     parseHeader(currentDiff, currentLine);
                     break;
@@ -101,7 +104,7 @@ public class UnifiedDiffParser implements DiffParser {
     }
 
     private void parseNeutralLine(Diff currentDiff, String currentLine) {
-        Line line = new Line(Line.LineType.NEUTRAL, currentLine);
+        Line line = new Line(Line.LineType.NEUTRAL, currentLine.startsWith(" ") ? currentLine.substring(1) : currentLine);
         currentDiff.getLatestHunk().getLines().add(line);
     }
 

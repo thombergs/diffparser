@@ -73,3 +73,19 @@ index d9f7e97..15c23a7 100644
                      lineQueue.addLast(nextLine);
                  }
                  return nextLine;
+diff --git a/diffparser/src/main/java/org/wickedsource/diffparser/unified/ResizingParseWindow.java b/diffparser/src/main/java/org/wickedsource/diffparser/unified/ResizingParseWindow.java
+index d9f7e97..15c23a7 100644
+--- a/diffparser/src/main/java/org/wickedsource/diffparser/unified/ResizingParseWindow.java
++++ b/diffparser/src/main/java/org/wickedsource/diffparser/unified/ResizingParseWindow.java
+@@ -74,0 +74,1 @@ public class ResizingParseWindow implements ParseWindow {
++                    nextLine = nextLine.trim();
+@@ -92,0 +93,1 @@ public class ResizingParseWindow implements ParseWindow {
++                    nextLine = nextLine.trim();
+diff --git a/diffparser/src/main/java/org/wickedsource/diffparser/unified/ResizingParseWindow.java b/diffparser/src/main/java/org/wickedsource/diffparser/unified/ResizingParseWindow.java
+index d9f7e97..15c23a7 100644
+--- a/diffparser/src/main/java/org/wickedsource/diffparser/unified/ResizingParseWindow.java
++++ b/diffparser/src/main/java/org/wickedsource/diffparser/unified/ResizingParseWindow.java
+@@ -74,1 +74,0 @@ public class ResizingParseWindow implements ParseWindow {
+-                    nextLine = nextLine.trim();
+@@ -92,1 +93,0 @@ public class ResizingParseWindow implements ParseWindow {
+-                    nextLine = nextLine.trim();
